@@ -494,6 +494,7 @@ public class ClientReadPlatformServiceImpl implements ClientReadPlatformService 
             final String firstname = rs.getString("firstname");
             final String middlename = rs.getString("middlename");
             final String lastname = rs.getString("lastname");
+            final String surname = rs.getString("surname");
             final String fullname = rs.getString("fullname");
             final String displayName = rs.getString("displayName");
             final String externalId = rs.getString("externalId");
@@ -563,7 +564,7 @@ public class ClientReadPlatformServiceImpl implements ClientReadPlatformService 
             return ClientData.instance(accountNo, status, subStatus, officeId, officeName, transferToOfficeId, transferToOfficeName, id,
                     firstname, middlename, lastname, fullname, displayName, externalId, mobileNo, emailAddress, dateOfBirth, gender,
                     activationDate, imageId, staffId, staffName, timeline, savingsProductId, savingsProductName, savingsAccountId,
-                    clienttype, classification, legalForm, clientNonPerson, isStaff);
+                    clienttype, classification, legalForm, clientNonPerson, isStaff, surname);
 
         }
     }
@@ -595,6 +596,7 @@ public class ClientReadPlatformServiceImpl implements ClientReadPlatformService 
                     "cvSubStatus.code_value as subStatusValue,cvSubStatus.code_description as subStatusDesc,c.office_id as officeId, o.name as officeName, ");
             builder.append("c.transfer_to_office_id as transferToOfficeId, transferToOffice.name as transferToOfficeName, ");
             builder.append("c.firstname as firstname, c.middlename as middlename, c.lastname as lastname, ");
+            builder.append("c.surname as surname, ");
             builder.append("c.fullname as fullname, c.display_name as displayName, ");
             builder.append("c.mobile_no as mobileNo, ");
             builder.append("c.is_staff as isStaff, ");
@@ -682,6 +684,7 @@ public class ClientReadPlatformServiceImpl implements ClientReadPlatformService 
             final String firstname = rs.getString("firstname");
             final String middlename = rs.getString("middlename");
             final String lastname = rs.getString("lastname");
+            final String surname = rs.getString("surname");
             final String fullname = rs.getString("fullname");
             final String displayName = rs.getString("displayName");
             final String externalId = rs.getString("externalId");
@@ -750,7 +753,7 @@ public class ClientReadPlatformServiceImpl implements ClientReadPlatformService 
             return ClientData.instance(accountNo, status, subStatus, officeId, officeName, transferToOfficeId, transferToOfficeName, id,
                     firstname, middlename, lastname, fullname, displayName, externalId, mobileNo, emailAddress, dateOfBirth, gender,
                     activationDate, imageId, staffId, staffName, timeline, savingsProductId, savingsProductName, savingsAccountId,
-                    clienttype, classification, legalForm, clientNonPerson, isStaff);
+                    clienttype, classification, legalForm, clientNonPerson, isStaff, surname);
 
         }
     }

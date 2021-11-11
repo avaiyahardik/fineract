@@ -108,6 +108,9 @@ public final class Client extends AbstractPersistableCustom {
     @Column(name = "lastname", length = 50, nullable = true)
     private String lastname;
 
+    @Column(name = "surname", length = 50, nullable = true)
+    private String surname;
+
     @Column(name = "fullname", length = 100, nullable = true)
     private String fullname;
 
@@ -253,6 +256,7 @@ public final class Client extends AbstractPersistableCustom {
         final String firstname = command.stringValueOfParameterNamed(ClientApiConstants.firstnameParamName);
         final String middlename = command.stringValueOfParameterNamed(ClientApiConstants.middlenameParamName);
         final String lastname = command.stringValueOfParameterNamed(ClientApiConstants.lastnameParamName);
+        final String surname = command.stringValueOfParameterNamed(ClientApiConstants.surnameParamName);
         final String fullname = command.stringValueOfParameterNamed(ClientApiConstants.fullnameParamName);
 
         final boolean isStaff = command.booleanPrimitiveValueOfParameterNamed(ClientApiConstants.isStaffParamName);
@@ -283,7 +287,7 @@ public final class Client extends AbstractPersistableCustom {
         final Long savingsAccountId = null;
         return new Client(currentUser, status, clientOffice, clientParentGroup, accountNo, firstname, middlename, lastname, fullname,
                 activationDate, officeJoiningDate, externalId, mobileNo, emailAddress, staff, submittedOnDate, savingsProductId,
-                savingsAccountId, dataOfBirth, gender, clientType, clientClassification, legalForm, isStaff);
+                savingsAccountId, dataOfBirth, gender, clientType, clientClassification, legalForm, isStaff, surname);
     }
 
     Client() {
@@ -295,7 +299,7 @@ public final class Client extends AbstractPersistableCustom {
             final LocalDate activationDate, final LocalDate officeJoiningDate, final String externalId, final String mobileNo,
             final String emailAddress, final Staff staff, final LocalDate submittedOnDate, final Long savingsProductId,
             final Long savingsAccountId, final LocalDate dateOfBirth, final CodeValue gender, final CodeValue clientType,
-            final CodeValue clientClassification, final Integer legalForm, final Boolean isStaff) {
+            final CodeValue clientClassification, final Integer legalForm, final Boolean isStaff, final String surname) {
 
         if (StringUtils.isBlank(accountNo)) {
             this.accountNumber = new RandomPasswordGenerator(19).generate();
@@ -350,6 +354,12 @@ public final class Client extends AbstractPersistableCustom {
             this.lastname = lastname.trim();
         } else {
             this.lastname = null;
+        }
+
+        if (StringUtils.isNotBlank(surname)) {
+            this.surname = surname.trim();
+        } else {
+            this.surname = null;
         }
 
         if (StringUtils.isNotBlank(fullname)) {
@@ -547,6 +557,12 @@ public final class Client extends AbstractPersistableCustom {
             final String newValue = command.stringValueOfParameterNamed(ClientApiConstants.lastnameParamName);
             actualChanges.put(ClientApiConstants.lastnameParamName, newValue);
             this.lastname = StringUtils.defaultIfEmpty(newValue, null);
+        }
+
+        if (command.isChangeInStringParameterNamed(ClientApiConstants.surnameParamName, this.surname)) {
+            final String newValue = command.stringValueOfParameterNamed(ClientApiConstants.surnameParamName);
+            actualChanges.put(ClientApiConstants.surnameParamName, newValue);
+            this.surname = StringUtils.defaultIfEmpty(newValue, null);
         }
 
         if (command.isChangeInStringParameterNamed(ClientApiConstants.fullnameParamName, this.fullname)) {
@@ -1072,6 +1088,10 @@ public final class Client extends AbstractPersistableCustom {
 
     public String getLastname() {
         return this.lastname;
+    }
+
+    public String getSurname() {
+        return this.surname;
     }
 
     public Date getProposedTransferDate() {
